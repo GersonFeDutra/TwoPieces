@@ -6,8 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-	private static final String _LAYOUT_PATH = "layout.fxml";
-	private static final String _TITLE = "Hello JavaFX from Scene Builder!";
+	// Caminho do arquivo FXML do layout principal da aplicação
+	private static final String _LAYOUT_PATH = "layouts/main_scene.fxml";
+	// Título da janela da aplicação.
+	private static final String _TITLE = "Two Pieces";
 
 	public static void main(String[] args) throws Exception {
 		launch(args);
@@ -15,13 +17,16 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		URL path = getClass().getResource(_LAYOUT_PATH); // Caminho absoluto do arquivo.
-		FXMLLoader fxmlLoader = new FXMLLoader(path); // Leitor FXML
-		Parent root = fxmlLoader.load(); // Inicia a leitura
-		Scene screen = new Scene(root); // Cria um canvas/ janela
-
-		primaryStage.setTitle(_TITLE);
-		primaryStage.setScene(screen);
-		primaryStage.show(); // Apresenta a aplicação
+		try {
+			URL path = getClass().getResource(_LAYOUT_PATH); // Caminho absoluto do arquivo.
+			FXMLLoader fxmlLoader = new FXMLLoader(path); // Leitor FXML.
+			Parent root = fxmlLoader.load(); // Raíz da cena extraída do FXML.
+			Scene scene = new Scene(root); // Cena inicial.
+			primaryStage.setTitle(_TITLE);
+			primaryStage.setScene(scene);
+			primaryStage.show(); // Apresenta a aplicação
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
