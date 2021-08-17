@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-public class GameStartController {
+public class GameStart {
 
     @FXML
     private Button startButton;
