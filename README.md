@@ -15,6 +15,16 @@ All image assets used in this game were extracted from [Game-icons.net](https://
 all under the [CC By 3.0](https://creativecommons.org/licenses/by/3.0/) license. Each used texture
 are listed below:
 
+#### By Skol
+
+- [Open treasure chest icon](https://game-icons.net/1x1/skoll/open-treasure-chest.html)
+
 #### By [Delapouite](https://delapouite.com/)
 
+- [Pirate hat icon](https://game-icons.net/1x1/delapouite/pirate-hat.html)
 - [Island icon](https://game-icons.net/1x1/delapouite/island.html)
+- [Pirate captain icon](https://game-icons.net/1x1/delapouite/pirate-captain.html)
+
+#### By [Lorc](https://lorcblog.blogspot.com/)
+
+- [Meat icon](https://game-icons.net/1x1/lorc/meat.html#download)
