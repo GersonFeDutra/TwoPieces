@@ -11,7 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class MainScene extends SceneController {
+public class GameScene extends SceneController {
 	private static String _MAIN_SCENE_PATH = "main_scene.fxml";
 	private GameMap _map;
 

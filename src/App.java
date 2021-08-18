@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import controllers.MainScene;
+import controllers.GameScene;
 
 public class App extends Application {
 	// Caminho do arquivo FXML do layout principal da aplicação
@@ -38,7 +38,7 @@ public class App extends Application {
 			Scene scene = new Scene(root); // Cena inicial.
 
 			if (isTestMode)
-				(fxmlLoader.<MainScene>getController()).initCanvas();
+				(fxmlLoader.<GameScene>getController()).initCanvas();
 
 			primaryStage.setTitle(_TITLE);
 			primaryStage.setScene(scene);

@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-public class GameStart extends SceneController {
+public class StartScene extends SceneController {
 	private static String _GAME_SCENE_PATH = "game.fxml";
 
 	@FXML
@@ -31,6 +31,6 @@ public class GameStart extends SceneController {
 
 	@Override
 	public void switchScene(ActionEvent event) throws IOException {
-		((MainScene) _switchScene(event, _GAME_SCENE_PATH)).initCanvas();
+		((GameScene) _switchScene(event, _GAME_SCENE_PATH)).initCanvas();
 	}
 }
