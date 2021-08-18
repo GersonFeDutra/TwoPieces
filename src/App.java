@@ -1,4 +1,7 @@
 import java.net.URL;
+// import java.util.Locale;
+// import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,10 +10,14 @@ import javafx.stage.Stage;
 import controllers.GameScene;
 
 public class App extends Application {
+
 	// Caminho do arquivo FXML do layout principal da aplicação
 	private static final String _LAYOUT_PATH = "layouts/main_scene.fxml";
 	// Caminho do arquivo FXML da cena inicial alternativa.
 	private static final String _TEST_MODE_SCENE_PATH = "layouts/game.fxml";
+	// TODO -> Adicionar diretório de assets ao classpath, para habilitar as locales.
+	// // Caminho do arquivo de propriedades contendo as strings usadas na aplicação.
+	// private static final String _BUNDLE_PATH = "../assets/Bundle";
 	// Determina se a aplicação está executando em modo de testes.
 	private static boolean isTestMode = false;
 	// Título da janela da aplicação.
@@ -33,7 +40,7 @@ public class App extends Application {
 		try {
 			// Caminho absoluto do arquivo.
 			URL path = getClass().getResource(isTestMode ? _TEST_MODE_SCENE_PATH : _LAYOUT_PATH);
-			FXMLLoader fxmlLoader = new FXMLLoader(path); // Leitor FXML.
+			FXMLLoader fxmlLoader = new FXMLLoader(path/*, _getLocalizedResources()*/); // Leitor FXML.
 			Parent root = fxmlLoader.load(); // Raíz da cena extraída do FXML.
 			Scene scene = new Scene(root); // Cena inicial.
 
@@ -47,4 +54,18 @@ public class App extends Application {
 			e.printStackTrace();
 		}
 	}
+
+// 	// Retorna o bundle de localização.
+// 	private ResourceBundle _getLocalizedResources() {
+// 		// Locale padrão do usuário
+// 		Locale defaultLocale = Locale.getDefault();
+// 
+// 		// if (defaultLocale.getLanguage().equals("pt"))
+// 		// 	defaultLocale = new Locale("pt");
+// 		// else
+// 		// defaultLocale = Locale.ENGLISH;
+// 
+// 		// System.out.println(defaultLocale.getLanguage());
+// 		return ResourceBundle.getBundle(_BUNDLE_PATH, defaultLocale);
+// 	}
 }
