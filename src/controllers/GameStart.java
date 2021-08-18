@@ -31,6 +31,6 @@ public class GameStart extends SceneController {
 
 	@Override
 	public void switchScene(ActionEvent event) throws IOException {
-		_switchScene(event, _GAME_SCENE_PATH);
+		((MainScene) _switchScene(event, _GAME_SCENE_PATH)).initCanvas();
 	}
 }

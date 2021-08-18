@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,7 +26,7 @@ abstract class SceneController {
 
 	public abstract void switchScene(ActionEvent event) throws IOException;
 
-	protected void _switchScene(ActionEvent event, String to) throws IOException {
+	protected SceneController _switchScene(ActionEvent event, String to) throws IOException {
 		// Carrega o arquivo do FXML com o layout da nova cena.
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(_LAYOUTS_DIR_PATH + to));
 		_root = fxmlLoader.load();
@@ -39,6 +38,8 @@ abstract class SceneController {
 		_centerStage(controller.window.getPrefWidth(), controller.window.getPrefHeight());
 		_scene = new Scene(_root);
 		_stage.setScene(_scene);
+
+		return controller;
 	}
 
 	private void _centerStage(double width, double height) {
