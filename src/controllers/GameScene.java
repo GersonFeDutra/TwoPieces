@@ -1,17 +1,20 @@
 package controllers;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class GameScene extends SceneController {
+public class GameScene extends SceneController implements Initializable {
 	private static String _MAIN_SCENE_PATH = "main_scene.fxml";
 	private GameMap _map;
 
@@ -46,7 +49,7 @@ public class GameScene extends SceneController {
 		// ... user chose CANCEL or closed the dialog
 	}
 
-	public void initCanvas() {
+	public void initialize(URL location, ResourceBundle resources) {
 		_map = new GameMap(mapCanvas.getGraphicsContext2D(), (int) mapCanvas.getWidth(), (int) mapCanvas.getHeight());
 		_map.update();
 	}

@@ -15,7 +15,7 @@ public class App extends Application {
 	private static final String _LAYOUT_PATH = "layouts/main_scene.fxml";
 	// Caminho do arquivo FXML da cena inicial alternativa.
 	private static final String _TEST_MODE_SCENE_PATH = "layouts/game.fxml";
-	// TODO -> Adicionar diretório de assets ao classpath, para habilitar as locales.
+	// TODO #2 -> Adicionar diretório de assets ao classpath, para habilitar as locales.
 	// // Caminho do arquivo de propriedades contendo as strings usadas na aplicação.
 	// private static final String _BUNDLE_PATH = "../assets/Bundle";
 	// Determina se a aplicação está executando em modo de testes.
@@ -45,7 +45,7 @@ public class App extends Application {
 			Scene scene = new Scene(root); // Cena inicial.
 
 			if (isTestMode)
-				(fxmlLoader.<GameScene>getController()).initCanvas();
+				fxmlLoader.<GameScene>getController();
 
 			primaryStage.setTitle(_TITLE);
 			primaryStage.setScene(scene);

@@ -43,7 +43,7 @@ public class StartScene extends SceneController implements Initializable {
 
 	@Override
 	public void switchScene(ActionEvent event) throws IOException {
-		((GameScene) _switchScene(event, _GAME_SCENE_PATH)).initCanvas();
+		_switchScene(event, _GAME_SCENE_PATH);
 	}
 
 	@Override
