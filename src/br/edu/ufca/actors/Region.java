@@ -9,7 +9,7 @@ import br.edu.ufca.gameObjects.*;
  */
 public class Region {
 	private static final Random _RNG = new Random();
-	private static final double _EDGES_INFLUENCE_FACTOR = 0.1;
+	private static final double _EDGES_INFLUENCE_FACTOR = 0.3;
 	private static final double _ISLAND_SPAWN_FACTOR = 0.2;
 	private static final double _ISLAND_NEIGHBOR_INFLUENCE = 0.04;
 	private static final double _CREW_SPAWN_FACTOR = 0.3;
@@ -61,7 +61,7 @@ public class Region {
 	}
 
 	private boolean isOnBounds(int x, int y, int xLimit, int yLimit) {
-		return x > 0 && x < xLimit && y > 0 && y < yLimit;
+		return x >= 0 && x < xLimit && y >= 0 && y < yLimit;
 	}
 
 	/* Gera um novo mapa, com base em alguns fatores de randomização. */

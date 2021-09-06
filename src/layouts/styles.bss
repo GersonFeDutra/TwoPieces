@@ -1,0 +1,19 @@
+.titles {
+	-fx-font-family: "Comfortaa Light";
+}
+.resources {
+	/* -fx-text-fill: blue; */
+	/* -fx-underline: true; */
+	/* -fx-background-color: red; */
+	-fx-font-family: "Caladea";
+	-fx-font-size: 13.0;
+}
+.resources-counter {
+	-fx-font-family: "Caladea";
+	-fx-font-size: 20.0;
+}
+.log {
+	-fx-font-family: "Caladea";
+	-fx-font-size: 13.0;
+	-fx-font-style: italic;
+}

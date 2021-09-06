@@ -17,15 +17,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 public class GameScene extends SceneController implements Initializable {
 	private static String _MAIN_SCENE_PATH = "main_scene.fxml";
 	private GameMap _map;
 	private Player _player;
 	private Region _region = new Region();
+	private Image _spriteNavigate = new Image("file:assets/compass.png", 64, 0, true, true);
+	private Image _spriteNavigateColored = new Image("file:assets/compass-purple.png", 64, 0, true, true);
 
 	@Override
 	public void switchScene(ActionEvent event) throws IOException {
@@ -42,14 +51,40 @@ public class GameScene extends SceneController implements Initializable {
 	private Color x2;
 
 	@FXML
+	private Label guideLabel;
+	@FXML
+	private Label crewLabel;
+	@FXML
+	private Label treasuresDisplay;
+	@FXML
+	private Label membersDisplay;
+	@FXML
+	private Label foodDisplay;
+
+	@FXML
+	private ImageView imgButtonSwitchRegion;
+
+	@FXML
+	private ScrollPane logScrollPane;
+
+	@FXML
+	private TextFlow logPane;
+
+	@FXML
+	private TitledPane battlePane;
+
+	@FXML
 	void popupWarning(ActionEvent event) throws IOException {
 		Alert alertWindow = new Alert(Alert.AlertType.CONFIRMATION);
-		alertWindow.setTitle("Are you sure?");
-		alertWindow.setHeaderText("Return to the main screen.");
-		alertWindow.setContentText("Returning to the main screen will cause you to lose progress.");
+		// alertWindow.setTitle("Are you sure?");
+		alertWindow.setTitle("Está certo disso?");
+		// alertWindow.setHeaderText("Return to the main screen.");
+		alertWindow.setHeaderText("Retornar a tela principal.");
+		// alertWindow.setContentText("Returning to the main screen will cause you to
+		// lose progress.");
+		alertWindow.setContentText("Retornar a tela principal fará com que você perca progresso.");
 
 		Optional<ButtonType> result = alertWindow.showAndWait();
-		System.out.println(crewName);
 
 		if (result.get() == ButtonType.OK)
 			// ... user chose OK
@@ -59,16 +94,15 @@ public class GameScene extends SceneController implements Initializable {
 	}
 
 	void selectIsland() {
-
-		System.out.println("Island selecionado.");
+		log("Island selecionado.");
 	}
 
 	void selectCrew() {
-		System.out.println("Crew selecionado.");
+		log("Crew selecionado.");
 	}
 
 	private void shuffleMap() {
-		_region.generateChunk(_map.getWidth(), _map.getHeight());
+		_region.generateChunk(_map.getGridWidth(), _map.getGridHeight());
 		_region.iterate((xy, x, y) -> {
 			Cell type = null;
 
@@ -84,9 +118,42 @@ public class GameScene extends SceneController implements Initializable {
 		_map.update();
 	}
 
+	public void log(Text text) {
+		text.setStyle("-fx-font-family: \"Caladea\";-fx-font-size: 13.0;");
+		logPane.getChildren().add(text);
+		logScrollPane.setVvalue(1.0);
+	}
+
+	public void log(String logText) {
+		Text text = new Text();
+		text.setText(logText + "\n");
+		// text.setStyle("-fx-font-family: \"Caladea\";-fx-font-size:
+		// 13.0;-fx-font-style: italic;");
+		log(text);
+	}
+
+	public void setTreasureScore(int points) {
+		treasuresDisplay.setText(String.valueOf(points));
+	}
+
+	public void setMemberScore(int points) {
+		membersDisplay.setText(String.valueOf(points));
+	}
+
+	public void setFoodScore(int points) {
+		foodDisplay.setText(String.valueOf(points));
+	}
+
 	public void initialize(URL location, ResourceBundle resources) {
-		_map = new GameMap(mapCanvas.getGraphicsContext2D(), (int) mapCanvas.getWidth(), (int) mapCanvas.getHeight());
+		guideLabel.setText("");
+		battlePane.setVisible(false);
+		_map = new GameMap(mapCanvas.getGraphicsContext2D(), mapCanvas.getWidth(), mapCanvas.getHeight());
 		shuffleMap();
+
+		Text welcomeText = (Text) logPane.getChildren().get(0);
+
+		if (welcomeText != null)
+			welcomeText.setText("Bem vindo ao mundo dos piratas!\n");
 
 		// Por algum motivo os eventos de mouse do JavaFX tem de ser tratados com
 		// filtros que recebem objetos sobrescrevendo a função de tratamento.
@@ -101,12 +168,12 @@ public class GameScene extends SceneController implements Initializable {
 					return;
 
 				switch (cell) {
-					case ISLAND:
-						selectIsland();
-						break;
-					case CREW:
-						selectCrew();
-						break;
+				case ISLAND:
+					selectIsland();
+					break;
+				case CREW:
+					selectCrew();
+					break;
 				}
 
 			}
@@ -114,19 +181,51 @@ public class GameScene extends SceneController implements Initializable {
 		mapCanvas.addEventFilter(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				_map.highlightCell((int) event.getX(), (int) event.getY());
+				GameMap.IPoint2D coords = _map.mapToCoords(event.getX(), event.getY());
+				Object current = _region.getObjectAt(coords.x, coords.y);
+				_map.highlightCell(coords);
+
+				if (current == null)
+					guideLabel.setText("");
+				else if (current instanceof Island)
+					guideLabel.setText("Navegar para ilha.");
+				else if (current instanceof Crew)
+					guideLabel.setText("Pilhar bando.");
 			}
 		});
-
 		mapCanvas.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
 				_map.disableHighlight();
+				guideLabel.setText("");
+			};
+		});
+		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				System.out.println("Navegar!"); // @laisdumont <- Tu vai fazer esse evento
+				log("Navegar!");
+			}
+		});
+		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent arg0) {
+				imgButtonSwitchRegion.setImage(_spriteNavigateColored);
+			};
+		});
+		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent arg0) {
+				imgButtonSwitchRegion.setImage(_spriteNavigate);
 			};
 		});
 	}
 
 	public void updateCanvas() {
 		_map.update();
+	}
+
+	@Override
+	public void setCrewName(String crewName) {
+		super.setCrewName(crewName);
+		crewLabel.setText(crewName);
 	}
 }

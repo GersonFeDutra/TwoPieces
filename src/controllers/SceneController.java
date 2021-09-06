@@ -14,7 +14,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 abstract class SceneController {
-	public String crewName;
+	private String _crewName = "Placeholder hats";
 
 	private Stage _stage; // Contêiner primário da aplicação.
 	private Scene _scene; // Cena atual - que está sendo apresentada na aplicação.
@@ -33,7 +33,7 @@ abstract class SceneController {
 		// Controlador da cena instanciada.
 		SceneController controller = fxmlLoader.<SceneController>getController();
 		// Configurações da cena.
-		controller.crewName = crewName;
+		controller.setCrewName(_crewName);
 		_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		_centerStage(controller.window.getPrefWidth(), controller.window.getPrefHeight());
 		_scene = new Scene(_root);
@@ -45,5 +45,9 @@ abstract class SceneController {
 
 		_stage.setX((screenBounds.getWidth() - width) / 2);
 		_stage.setY((screenBounds.getHeight() - height) / 2);
+	}
+
+	public void setCrewName(String crewName) {
+		this._crewName = crewName;
 	}
 }

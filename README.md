@@ -27,4 +27,5 @@ are listed below:
 
 #### By [Lorc](https://lorcblog.blogspot.com/)
 
+- [Compass icon](https://game-icons.net/1x1/lorc/compass.html#download)
 - [Meat icon](https://game-icons.net/1x1/lorc/meat.html#download)

@@ -11,6 +11,10 @@ import javafx.scene.paint.Color;
 /*
  * Classe auxiliar do controlador `GameScene`,
  * responsável por tratar a renderização do mapa no Canvas.
+ * @note
+ * Passando valores `double` como posições no Canvas para os métodos dessa classe,
+ * converterá para as coordenas inteiras do mapa. Para indicar as coordenas
+ * diretamente usar a função `mapToCoords` que retorna um `IPoint2D`.
  */
 class GameMap {
 	enum Cell {
@@ -41,13 +45,13 @@ class GameMap {
 
 	private IPoint2D highlightedCell;
 
-	GameMap(GraphicsContext gc, int width, int height) {
+	GameMap(GraphicsContext gc, double width, double height) {
 		this._context = gc;
-		this._width = width;
-		this._height = height;
+		this._width = (int) width;
+		this._height = (int) height;
 
-		this._grid_parts_x = width / (_CELL_SIZE + _SPREAD);
-		this._grid_parts_y = height / (_CELL_SIZE + _SPREAD);
+		this._grid_parts_x = this._width / (_CELL_SIZE + _SPREAD);
+		this._grid_parts_y = this._height / (_CELL_SIZE + _SPREAD);
 		this.cellMap = new Cell[_grid_parts_x][_grid_parts_y];
 
 		// Inicializa o dicionário de associação dos sprites com as células do mapa.
@@ -65,40 +69,57 @@ class GameMap {
 		return new Image("file:" + _ASSETS_FOLDER + fileName, _CELL_SIZE, 0, true, true);
 	}
 
-	private IPoint2D _mapToCoords(int x, int y) {
-		return new IPoint2D(x / _CELL_SPACE % _grid_parts_x, y / _CELL_SPACE % _grid_parts_x);
+	IPoint2D mapToCoords(double x, double y) {
+		return new IPoint2D(Math.min(((int) x) / _CELL_SPACE, _grid_parts_x - 1),
+				Math.min(((int) y) / _CELL_SPACE, _grid_parts_x - 1));
 	}
 
-	Cell positionToCell(int x, int y) {
-		IPoint2D cellCoords = _mapToCoords(x, y);
+	Cell positionToCell(double x, double y) {
+		IPoint2D cellCoords = mapToCoords(x, y);
 
 		return cellMap[cellCoords.x][cellCoords.y];
 	}
 
-	void setCell(int x, int y, Cell cell) {
-		IPoint2D coords = _mapToCoords(x, y);
-
-		cellMap[coords.x][coords.y] = cell;
+	Cell getCell(IPoint2D coords) {
+		return cellMap[coords.x][coords.y];
 	}
 
-	void setCellCoords(int x, int y, Cell cell) {
+	/* Passado a posição no canvas, altera a célula para o tipo indicado. */
+	// void setCell(double x, double y, Cell cell) {
+	// IPoint2D coords = mapToCoords(x, y);
+	//
+	// cellMap[coords.x][coords.y] = cell;
+	// }
+
+	/* Passado uma coordenada no mapa, altera a célula para o tipo indicado. */
+	void setCell(int x, int y, Cell cell) {
 		cellMap[x][y] = cell;
 		update();
 	}
 
-	public int getWidth() {
-		return _width;
+	/* Retorna o tamanho do mapa na vertical. */
+	int getGridWidth() {
+		return _grid_parts_x;
 	}
 
-	public int getHeight() {
-		return _height;
+	/* Retorna o tamanho do mapa na horizontal */
+	int getGridHeight() {
+		return _grid_parts_y;
 	}
 
-	void highlightCell(int x, int y) {
-		highlightedCell = _mapToCoords(x, y);
+	/* Destaca a célula nas coordenadas indicadas. */
+	void highlightCell(IPoint2D coords) {
+		highlightedCell = coords;
 		update();
 	}
 
+	/* Destaca a célula na posição indicadas. */
+	void highlightCell(double x, double y) {
+		highlightedCell = mapToCoords(x, y);
+		update();
+	}
+
+	/* Se houver uma célula em destaque, esta voltará ao estado normal. */
 	void disableHighlight() {
 		highlightedCell = null;
 		update();

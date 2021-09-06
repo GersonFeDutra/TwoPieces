@@ -27,8 +27,7 @@ public class StartScene extends SceneController implements Initializable {
 
 	@FXML
 	void startGame(ActionEvent event) throws IOException {
-		crewName = crewNameField.getText();
-		System.out.println(crewName);
+		setCrewName(crewNameField.getText());
 		switchScene(event);
 	}
 
