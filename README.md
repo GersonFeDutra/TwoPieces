@@ -24,8 +24,12 @@ are listed below:
 - [Pirate hat icon](https://game-icons.net/1x1/delapouite/pirate-hat.html)
 - [Island icon](https://game-icons.net/1x1/delapouite/island.html)
 - [Pirate captain icon](https://game-icons.net/1x1/delapouite/pirate-captain.html)
+- [Pirate cannon icon](https://game-icons.net/1x1/delapouite/pirate-cannon.html)
 
 #### By [Lorc](https://lorcblog.blogspot.com/)
 
 - [Compass icon](https://game-icons.net/1x1/lorc/compass.html#download)
 - [Meat icon](https://game-icons.net/1x1/lorc/meat.html#download)
+
+#### By Caro Asercion 
+- [Hyena head icon](https://game-icons.net/1x1/caro-asercion/hyena-head.html)

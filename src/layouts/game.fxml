@@ -59,23 +59,17 @@
          <children>
         <AnchorPane prefHeight="600.0" prefWidth="258.0">
           <children>
-            <Label fx:id="crewLabel" alignment="CENTER" layoutX="28.0" layoutY="174.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="placeholder" textAlignment="CENTER" wrapText="false">
-              <font>
-                <Font name="Comfortaa Light" size="18.0" fx:id="x1" />
-              </font>
-              <textFill>
-                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-              </textFill>
-            </Label>
-                  <GridPane layoutX="28.0" layoutY="206.0" prefHeight="200.0" prefWidth="200.0">
+            <Label fx:id="crewLabel" alignment="CENTER" layoutX="28.0" layoutY="174.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="placeholder" textAlignment="CENTER" wrapText="false"></Label>
+                  <GridPane layoutX="28.0" layoutY="206.0" prefHeight="267.0" prefWidth="200.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="67.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="133.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <ImageView fitHeight="65.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
@@ -105,7 +99,7 @@
                            <children>
                               <!-- <Label text="%label.crewMembers" /> -->
                               <Label styleClass="resources" text="Membros de tripulação" />
-                              <Label fx:id="membersDisplay" text="0" />
+                              <Label fx:id="membersDisplay" styleClass="resources-counter" text="0" />
                            </children>
                         </VBox>
                         <ImageView fitHeight="109.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
@@ -124,6 +118,17 @@
                                  <font>
                                     <Font name="Caladea" size="20.0" />
                                  </font></Label>
+                           </children>
+                        </VBox>
+                        <ImageView fitHeight="150.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+                           <image>
+                              <Image url="@../../assets/pirate-cannon.png" />
+                           </image>
+                        </ImageView>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <children>
+                              <Label styleClass="resources" text="Munição" />
+                              <Label fx:id="ammoDisplay" styleClass="resources-counter" text="0" />
                            </children>
                         </VBox>
                      </children>
@@ -166,17 +171,19 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" text="Explorar Região" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Label alignment="CENTER" styleClass="titles" text="Explorar Região" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <font>
                               <Font name="Comfortaa Light" size="13.0" />
                            </font></Label>
+                        <Label fx:id="scoreDisplay" alignment="CENTER" contentDisplay="CENTER" styleClass="resources-counter" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="titles" text="Pontuação" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
         </children>
       </AnchorPane>
         <AnchorPane prefHeight="600.0" prefWidth="221.0">
           <children>
-                  <Button layoutX="145.0" layoutY="13.0" mnemonicParsing="false" onAction="#popupWarning" text="Voltar" textFill="#bf6586">
+                  <Button layoutX="145.0" layoutY="13.0" mnemonicParsing="false" onAction="#popupWarning" styleClass="titles" text="Voltar" textFill="#bf6586">
                      <effect>
                         <Glow />
                      </effect>
@@ -202,8 +209,8 @@
                      <content>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Atacar" />
-                              <ProgressBar prefWidth="200.0" progress="0.5" />
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAttackButtonClicked" text="Atacar" />
+                              <ProgressBar fx:id="attackBar" prefWidth="200.0" progress="0.5" />
                            </children>
                         </VBox>
                      </content>

@@ -18,13 +18,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -46,12 +45,6 @@ public class GameScene extends SceneController implements Initializable {
 	private Canvas mapCanvas;
 
 	@FXML
-	private Font x1;
-
-	@FXML
-	private Color x2;
-
-	@FXML
 	private Label guideLabel;
 	@FXML
 	private Label crewLabel;
@@ -61,6 +54,10 @@ public class GameScene extends SceneController implements Initializable {
 	private Label membersDisplay;
 	@FXML
 	private Label foodDisplay;
+	@FXML
+	private Label scoreDisplay;
+	@FXML
+	private Label ammoDisplay;
 
 	@FXML
 	private ImageView imgButtonSwitchRegion;
@@ -75,19 +72,19 @@ public class GameScene extends SceneController implements Initializable {
 	private TitledPane battlePane;
 
 	@FXML
+	private ProgressBar attackBar;
+
+	@FXML
+	void onAttackButtonClicked(ActionEvent event) {
+		// @laisdumont
+	}
+
+	@FXML
 	void popupWarning(ActionEvent event) throws IOException {
-		Alert alertWindow = new Alert(Alert.AlertType.CONFIRMATION);
-		// alertWindow.setTitle("Are you sure?");
-		alertWindow.setTitle("Está certo disso?");
-		// alertWindow.setHeaderText("Return to the main screen.");
-		alertWindow.setHeaderText("Retornar a tela principal.");
-		// alertWindow.setContentText("Returning to the main screen will cause you to
-		// lose progress.");
-		alertWindow.setContentText("Retornar a tela principal fará com que você perca progresso.");
-
-		Optional<ButtonType> result = alertWindow.showAndWait();
-
-		if (result.get() == ButtonType.OK)
+		if (choose("Está certo disso?", "Retornar a tela principal.",
+				"Retornar a tela principal fará com que você perca progresso."))
+			// choose("Are you sure?", "Return to the main screen.", "Returning to the main
+			// screen will cause you to lose progress.")
 			// ... user chose OK
 			switchScene(event);
 		// else
@@ -102,6 +99,9 @@ public class GameScene extends SceneController implements Initializable {
 		log("Crew selecionado.");
 	}
 
+	/*
+	 * Muda o mapa para uma nova chunk na região.
+	 */
 	private void shuffleMap() {
 		_region.generateChunk(_map.getGridWidth(), _map.getGridHeight());
 		_region.iterate((xy, x, y) -> {
@@ -119,12 +119,32 @@ public class GameScene extends SceneController implements Initializable {
 		_map.update();
 	}
 
+	/*
+	 * Apresenta uma janela de mensagem na tela com uma escolha. Retorna booleano
+	 * que indica se a escolha foi aceita.
+	 */
+	public boolean choose(String title, String header, String context) {
+		Alert alertWindow = new Alert(Alert.AlertType.CONFIRMATION);
+		alertWindow.setTitle(title);
+		alertWindow.setHeaderText(header);
+		alertWindow.setContentText(context);
+
+		Optional<ButtonType> result = alertWindow.showAndWait();
+		return result.get() == ButtonType.OK;
+	}
+
+	/*
+	 * Adiciona texto no painel de log.
+	 */
 	public void log(Text text) {
 		text.setStyle("-fx-font-family: \"Caladea\";-fx-font-size: 13.0;");
 		logPane.getChildren().add(text);
 		logScrollPane.setVvalue(1.0);
 	}
 
+	/*
+	 * Apresenta uma mensagem no painel de Log.
+	 */
 	public void log(String logText) {
 		Text text = new Text();
 		text.setText(logText + "\n");
@@ -143,6 +163,22 @@ public class GameScene extends SceneController implements Initializable {
 
 	public void setFoodScore(int points) {
 		foodDisplay.setText(String.valueOf(points));
+	}
+
+	public void setAmmoScore(int points) {
+		ammoDisplay.setText(String.valueOf(points));
+	}
+
+	public void setScore(int points) {
+		scoreDisplay.setText(String.valueOf(points));
+	}
+
+	public void setAttackBarLevel(double to) {
+		attackBar.setProgress(to);
+	}
+
+	public void showBattlePane() {
+		battlePane.setVisible(true);
 	}
 
 	public void initialize(URL location, ResourceBundle resources) {

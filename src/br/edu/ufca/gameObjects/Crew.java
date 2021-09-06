@@ -11,11 +11,13 @@ public class Crew {
 	// para evitar motins.
 	private int members;
 	private int captainWill; // Valor usado em potencialização de ataques.
+
 	private int ammo; // Valor usado em ataques.
 	private int food; // Mantimentos necessários para manter tripulações maiores.
 	// Recursos provenientes de pilhagens, podem ser usados para obter comida,
 	// munição e reparos no navio;
 	private int treasures;
+
 	// Fator que influencia na "saúde" - Zero satisfação == perda certa.
 	private double satisfaction = 1.0;
 
@@ -23,7 +25,7 @@ public class Crew {
 		this.name = name;
 		this.members = 1;
 		this.ammo = 0;
-		this.food = 0;
+		this.food = 10;
 		this.treasures = 1;
 	}
 

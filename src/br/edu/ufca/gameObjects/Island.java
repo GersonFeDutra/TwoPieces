@@ -1,7 +1,7 @@
 package br.edu.ufca.gameObjects;
 
 /* 
- * @laisdumont
+ * @laisdumont -> Uma das ilhas deve ter a flag que indica se contém o Two Pieces
  */
 public class Island {
 	

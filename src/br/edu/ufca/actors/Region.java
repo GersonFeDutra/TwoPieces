@@ -14,6 +14,7 @@ public class Region {
 	private static final double _ISLAND_NEIGHBOR_INFLUENCE = 0.04;
 	private static final double _CREW_SPAWN_FACTOR = 0.3;
 	private static final double _CREW_NEIGHBOR_INFLUENCE = 0.02;
+	static double twoPiecesSpawnFactor = 0.0;
 	// Os fatores aleatórios acima influenciam na crianção do mapa.
 	// A soma dos fatores deve ser <= 1.0.
 	// Os valores de influência reduzem esses fatores condicionalmente.
@@ -49,15 +50,16 @@ public class Region {
 	public void updateChunk() {
 
 		for (Object[] objects : chunk)
-			for (Object object : objects) {
+			for (Object object : objects)
 
 				if (object == null)
 					continue;
-				if (object instanceof Crew) {
-
+				else if (object instanceof NPC) {
+					// TODO
+					// @laisdumont
+				} else if (object instanceof Island) {
+					// @laisdumont
 				}
-			}
-
 	}
 
 	private boolean isOnBounds(int x, int y, int xLimit, int yLimit) {
@@ -66,6 +68,7 @@ public class Region {
 
 	/* Gera um novo mapa, com base em alguns fatores de randomização. */
 	public void generateChunk(int width, int height) {
+		boolean twoPiecesSpawned = false;
 		chunk = new Object[width][height];
 
 		for (int i = 0; i < width; ++i)
@@ -105,8 +108,14 @@ public class Region {
 				}
 				randomFactor -= _ISLAND_SPAWN_FACTOR;
 
-				if (randomFactor < crewSpawnFactor)
+				if (randomFactor < crewSpawnFactor) {
 					chunk[i][j] = new Crew("name", 10, 5, 10);
+					continue;
+				}
+				randomFactor -= _CREW_SPAWN_FACTOR;
+
+				if (randomFactor < twoPiecesSpawnFactor && !twoPiecesSpawned)
+					chunk[i][j] = new Island(); // @laisdumont
 			}
 	}
 }
