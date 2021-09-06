@@ -49,7 +49,7 @@ public class StartScene extends SceneController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// languageComboBox.getItems().removeAll(languageComboBox.getItems());
 		// languageComboBox.getItems().addAll(resources.getString("languageOption.en"),
-		// 		resources.getString("languageOption.pt"));
+		// resources.getString("languageOption.pt"));
 		// languageComboBox.getSelectionModel().select("English");
 	}
 }

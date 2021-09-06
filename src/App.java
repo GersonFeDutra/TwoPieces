@@ -15,8 +15,10 @@ public class App extends Application {
 	private static final String _LAYOUT_PATH = "layouts/main_scene.fxml";
 	// Caminho do arquivo FXML da cena inicial alternativa.
 	private static final String _TEST_MODE_SCENE_PATH = "layouts/game.fxml";
-	// TODO #2 -> Adicionar diretório de assets ao classpath, para habilitar as locales.
-	// // Caminho do arquivo de propriedades contendo as strings usadas na aplicação.
+	// TODO #2 -> Adicionar diretório de assets ao classpath, para habilitar as
+	// locales.
+	// // Caminho do arquivo de propriedades contendo as strings usadas na
+	// aplicação.
 	// private static final String _BUNDLE_PATH = "../assets/Bundle";
 	// Determina se a aplicação está executando em modo de testes.
 	private static boolean isTestMode = false;
@@ -40,7 +42,8 @@ public class App extends Application {
 		try {
 			// Caminho absoluto do arquivo.
 			URL path = getClass().getResource(isTestMode ? _TEST_MODE_SCENE_PATH : _LAYOUT_PATH);
-			FXMLLoader fxmlLoader = new FXMLLoader(path/*, _getLocalizedResources()*/); // Leitor FXML.
+			// Leitor FXML.
+			FXMLLoader fxmlLoader = new FXMLLoader(path/* , _getLocalizedResources() */);
 			Parent root = fxmlLoader.load(); // Raíz da cena extraída do FXML.
 			Scene scene = new Scene(root); // Cena inicial.
 
@@ -55,17 +58,17 @@ public class App extends Application {
 		}
 	}
 
-// 	// Retorna o bundle de localização.
-// 	private ResourceBundle _getLocalizedResources() {
-// 		// Locale padrão do usuário
-// 		Locale defaultLocale = Locale.getDefault();
-// 
-// 		// if (defaultLocale.getLanguage().equals("pt"))
-// 		// 	defaultLocale = new Locale("pt");
-// 		// else
-// 		// defaultLocale = Locale.ENGLISH;
-// 
-// 		// System.out.println(defaultLocale.getLanguage());
-// 		return ResourceBundle.getBundle(_BUNDLE_PATH, defaultLocale);
-// 	}
+	// // Retorna o bundle de localização.
+	// private ResourceBundle _getLocalizedResources() {
+	// // Locale padrão do usuário
+	// Locale defaultLocale = Locale.getDefault();
+	//
+	// // if (defaultLocale.getLanguage().equals("pt"))
+	// // defaultLocale = new Locale("pt");
+	// // else
+	// // defaultLocale = Locale.ENGLISH;
+	//
+	// // System.out.println(defaultLocale.getLanguage());
+	// return ResourceBundle.getBundle(_BUNDLE_PATH, defaultLocale);
+	// }
 }

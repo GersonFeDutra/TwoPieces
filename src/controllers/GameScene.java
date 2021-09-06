@@ -34,7 +34,8 @@ public class GameScene extends SceneController implements Initializable {
 	private Player _player;
 	private Region _region = new Region();
 	private Image _spriteNavigate = new Image("file:assets/compass.png", 64, 0, true, true);
-	private Image _spriteNavigateColored = new Image("file:assets/compass-purple.png", 64, 0, true, true);
+	private Image _spriteNavigateColored = new Image("file:assets/compass-purple.png", 64, 0, true,
+			true);
 
 	@Override
 	public void switchScene(ActionEvent event) throws IOException {
@@ -147,7 +148,8 @@ public class GameScene extends SceneController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		guideLabel.setText("");
 		battlePane.setVisible(false);
-		_map = new GameMap(mapCanvas.getGraphicsContext2D(), mapCanvas.getWidth(), mapCanvas.getHeight());
+		_map = new GameMap(mapCanvas.getGraphicsContext2D(), mapCanvas.getWidth(),
+				mapCanvas.getHeight());
 		shuffleMap();
 
 		Text welcomeText = (Text) logPane.getChildren().get(0);
@@ -200,23 +202,26 @@ public class GameScene extends SceneController implements Initializable {
 				guideLabel.setText("");
 			};
 		});
-		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				System.out.println("Navegar!"); // @laisdumont <- Tu vai fazer esse evento
-				log("Navegar!");
-			}
-		});
-		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent arg0) {
-				imgButtonSwitchRegion.setImage(_spriteNavigateColored);
-			};
-		});
-		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent arg0) {
-				imgButtonSwitchRegion.setImage(_spriteNavigate);
-			};
-		});
+		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_CLICKED,
+				new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent arg0) {
+						System.out.println("Navegar!"); // @laisdumont <- Tu vai fazer esse evento
+						log("Navegar!");
+					}
+				});
+		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_MOVED,
+				new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent arg0) {
+						imgButtonSwitchRegion.setImage(_spriteNavigateColored);
+					};
+				});
+		imgButtonSwitchRegion.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET,
+				new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent arg0) {
+						imgButtonSwitchRegion.setImage(_spriteNavigate);
+					};
+				});
 	}
 
 	public void updateCanvas() {
