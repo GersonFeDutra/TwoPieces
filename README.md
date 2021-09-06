@@ -2,10 +2,10 @@
 
 ## Project Structure
 
-- `src`: the folder to maintain sources
+- `src`: the folder to maintain sources (uses MVC pattern)
 	- `layouts` - all XHTML files used to build the GUI
 	- `controllers` - source code that control the GUI functionalities
-	- `br.edu.ufca` - main package (uses MVC to manage the data of the application).
+	- `br.edu.ufca` - main package - manage the data of the application.
 - `assets`: image textures used in the game (see [licenses](#Licenses) below).
 <!-- - `lib`: the folder to maintain dependencies -->
 

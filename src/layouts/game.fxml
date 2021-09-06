@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -122,7 +123,10 @@
                         <Color red="0.624" green="0.624" blue="0.624" fx:id="x4" />
                      </textFill>
                   </Label>
-                  <Canvas fx:id="mapCanvas" height="400.0" layoutX="14.0" layoutY="100.0" width="400.0" />
+                  <Canvas fx:id="mapCanvas" height="400.0" layoutX="14.0" layoutY="100.0" width="400.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Canvas>
                   <GridPane alignment="CENTER" layoutX="42.0" layoutY="515.0" prefHeight="71.0" prefWidth="320.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
